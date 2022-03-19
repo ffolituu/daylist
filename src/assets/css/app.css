@@ -1,0 +1,58 @@
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+
+.app .col-start{
+    width: 260px;
+    background-color: #f7f7f7;
+}
+
+
+.app .list-group-item{
+    background-color: transparent;
+    border:dashed #ccc;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.app .col-end{
+    position: relative;
+    background-image: url('../img/bg-default-dark.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.app .action-radio{
+    position: absolute;
+    top: 20px;
+}
+
+input[type="radio"]{
+    cursor:pointer
+}
+
+.app .form-add-todo{
+    position: absolute;
+    bottom: 20px;
+    width: 96%;
+    left: 15px;
+}
+
+.app .form-add-todo input{
+
+    padding:15px;
+}
+
