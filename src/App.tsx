@@ -7,10 +7,39 @@ import { faCloudSun, faMedal, faFlag } from '@fortawesome/free-solid-svg-icons'
 
 const App: React.FunctionComponent<any> = () => {
   // State
-  const [todoList, setTodoList] = React.useState<any[]>([])
+  const [todoList, setTodoList] = React.useState<any[]>([
+    {
+      id: 1,
+      name: "Instore > Créer un flux d'enregistrement pour un achat d'une commande",
+      urgent: false,
+      completed: false,
+    },
+    {
+      id: 2,
+      name: 'Instore > Créer un flux de dépôt de colis',
+      urgent: true,
+      completed: false,
+    },
+  ])
   const [inputTask, setInputTask] = React.useState<string>('')
+  const month = [
+    'Janvier',
+    'Février',
+    'Mars',
+    'Avril',
+    'Mai',
+    'Juin',
+    'Juillet',
+    'Août',
+    'Septembre',
+    'Octobre',
+    'Novembre',
+    'Décembre',
+  ]
+  const day = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 
   // Init
+  const date = new Date()
   const getColorUrgent = (param: boolean) => {
     return param ? 'danger' : 'muted'
   }
@@ -27,17 +56,22 @@ const App: React.FunctionComponent<any> = () => {
     setInputTask('')
   }
 
-  const handleToggleUrgent = (todo: object) => {
-    //console.log(todo)
-    //const index = todoList.findIndex((task) => task.id === todo.id)
-    //const newTodoList = [...todoList]
+  const handleToggleUrgent = (todo: any) => {
+    const index = todoList.findIndex((task) => task.id === todo.id)
+    const newTodoList = [...todoList]
+    if (todo.urgent) {
+      newTodoList[index] = { id: todo.id, name: todo.name, urgent: false, completed: false }
+    } else {
+      newTodoList[index] = { id: todo.id, name: todo.name, urgent: true, completed: false }
+    }
+    setTodoList(newTodoList)
+  }
 
-    //console.log(index)
-    //console.log(newTodoList)
-
-    //newTodoList[index] = { id: id, name: inputValueEdit.name }
-    //setList(newList)
-    //setInputValueEdit({ name: '' })
+  const handleCompleted = (todo: any) => {
+    const index = todoList.findIndex((task) => task.id === todo.id)
+    const newTodoList = [...todoList]
+    newTodoList[index] = { id: todo.id, name: todo.name, urgent: todo.urgent, completed: true }
+    setTodoList(newTodoList)
   }
 
   // Render
@@ -80,22 +114,32 @@ const App: React.FunctionComponent<any> = () => {
               Ma journée
             </h4>
             <small>
-              <i>Vendredi 18 mars</i>
+              <i>{day[date.getDay()] + ' ' + date.getDate() + ' ' + month[date.getMonth()]}</i>
             </small>
           </div>
           <div className='todolist'>
-            {todoList.map((todo: any) => (
-              <Alert key={todo.id}>
-                <input type='radio' className='me-2' /> {todo.name}
-                <FontAwesomeIcon
-                  icon={faFlag}
-                  fontSize={17}
-                  className={`me-2 float-end text-${getColorUrgent(todo.urgent)}`}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => handleToggleUrgent(todo)}
-                />
-              </Alert>
-            ))}
+            {todoList.map(
+              (todo: any) =>
+                !todo.completed && (
+                  <div key={todo.id}>
+                    <Alert>
+                      <input
+                        type='radio'
+                        className='me-2'
+                        onClick={() => handleCompleted(todo)}
+                      />
+                      {todo.name}
+                      <FontAwesomeIcon
+                        icon={faFlag}
+                        fontSize={17}
+                        className={`me-2 float-end text-${getColorUrgent(todo.urgent)}`}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleToggleUrgent(todo)}
+                      />
+                    </Alert>
+                  </div>
+                )
+            )}
           </div>
           <div className='form-add-todo'>
             <form onSubmit={handleSubmit}>
