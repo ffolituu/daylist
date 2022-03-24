@@ -2,24 +2,33 @@ import React from 'react'
 import logo from './assets/img/favicon.svg'
 import './assets/css/app.css'
 import { Col, Container, Row, ListGroup, Alert, Badge } from 'react-bootstrap'
+import useLocalStorage from 'use-local-storage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCloudSun, faMedal, faFlag } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCloudSun,
+  faMedal,
+  faFlag,
+  faLightbulb,
+  faMoon,
+} from '@fortawesome/free-solid-svg-icons'
 
 const App: React.FunctionComponent<any> = () => {
   // State
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light')
   const [todoList, setTodoList] = React.useState<any[]>([
-    {
-      id: 1,
-      name: "Instore > Créer un flux d'enregistrement pour un achat d'une commande",
-      urgent: false,
-      completed: false,
-    },
-    {
-      id: 2,
-      name: 'Instore > Créer un flux de dépôt de colis',
-      urgent: true,
-      completed: false,
-    },
+    // {
+    //   id: 1,
+    //   name: "Instore > Créer un flux d'enregistrement pour un achat d'une commande",
+    //   urgent: false,
+    //   completed: false,
+    // },
+    // {
+    //   id: 2,
+    //   name: 'Instore > Créer un flux de dépôt de colis',
+    //   urgent: true,
+    //   completed: false,
+    // },
   ])
   const [inputTask, setInputTask] = React.useState<string>('')
   const month = [
@@ -45,6 +54,18 @@ const App: React.FunctionComponent<any> = () => {
   }
 
   // Event
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+  }
+
+  const setIconTheme = (param: string) => {
+    if (param === 'light') {
+      return <FontAwesomeIcon icon={faMoon} fontSize={25} />
+    }
+    return <FontAwesomeIcon icon={faLightbulb} fontSize={25} />
+  }
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputTask(e.currentTarget.value)
   }
@@ -76,7 +97,7 @@ const App: React.FunctionComponent<any> = () => {
 
   // Render
   return (
-    <Container fluid className='app'>
+    <Container fluid className='app' data-theme={theme}>
       <Row>
         <Col sm={4} lg={2} className='p-3 col-start' style={{ height: '100vh' }}>
           <div className='brand ms-4'>
@@ -108,7 +129,12 @@ const App: React.FunctionComponent<any> = () => {
           </ListGroup>
         </Col>
         <Col className='p-3 col-end'>
-          <div className='title text-white mb-4'>
+          <div className='title mb-4'>
+            <div className='float-end'>
+              <button className='btn btn-sm btn-secondary' onClick={toggleTheme}>
+                {setIconTheme(theme)}
+              </button>
+            </div>
             <h4 className='mb-0'>
               <FontAwesomeIcon icon={faCloudSun} fontSize={25} className='me-2' />
               Ma journée
@@ -146,7 +172,7 @@ const App: React.FunctionComponent<any> = () => {
               <input
                 type='text'
                 className='form-control'
-                placeholder='Ajouter une nouvelle tâche'
+                placeholder='+ Ajouter une nouvelle tâche'
                 value={inputTask}
                 onChange={handleChange}
               />
