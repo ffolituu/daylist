@@ -1,0 +1,96 @@
+:root {
+    --background: white;
+    --transparent:#ffffffba;
+    --text-primary: black;
+    --text-secondary: royalblue;
+    --accent: purple;
+  }
+  [data-theme='dark'] {
+    --transparent:#232323ed;
+    --background: #232323;
+    --text-primary: white;
+    --text-secondary: grey;
+    --accent: darkred;
+  }
+
+.app .alert-primary {
+    color: var(--text-primary);
+    background-color: var(--transparent);
+    border-color: transparent;
+    margin-bottom: 2px;
+}
+
+.app .title{
+    color: white;
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: red;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: red;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: red;
+  }
+
+.app .form-control,
+.app .form-control:focus {
+    color: var(--text-primary);
+    background-color: var(--transparent);
+    border-color: transparent;
+    outline: 0;
+    box-shadow: none;
+}
+
+
+.app .col-start{
+    width: 260px;
+    color: var(--text-primary);
+    background-color: var(--background);
+}
+
+
+.app .list-group-item{
+    background-color: transparent;
+    color:var(--text-primary);
+    border:dashed #ccc;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.app .col-end{
+    position: relative;
+    background-image: url('../img/bg-default-dark.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.app .action-radio{
+    position: absolute;
+    top: 20px;
+}
+
+input[type="radio"]{
+    cursor:pointer
+}
+
+.app .form-add-todo{
+    position: absolute;
+    bottom: 20px;
+    width: 96%;
+    left: 15px;
+}
+
+.app .form-add-todo input{
+
+    padding:15px;
+}
+
