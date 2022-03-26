@@ -10,12 +10,18 @@ import {
   faFlag,
   faLightbulb,
   faMoon,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons'
+import bg1 from './assets/img/bg-1.jpg'
+import bg2 from './assets/img/bg-2.jpg'
+import bg3 from './assets/img/bg-3.jpg'
 
 const App: React.FunctionComponent<any> = () => {
   // State
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches
   const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light')
+  const [showBgList, setBgList] = React.useState<boolean>(false)
+  const [currentBg, setCurrentBg] = React.useState<string>(bg1)
   const [todoList, setTodoList] = React.useState<any[]>([
     // {
     //   id: 1,
@@ -54,6 +60,22 @@ const App: React.FunctionComponent<any> = () => {
   }
 
   // Event
+  const handleClickButtonBg = () => {
+    if(!showBgList){
+      setBgList(true)
+    }else{
+      setBgList(false)
+    }
+  }
+
+  const handleClickBg = () =>{
+
+  }
+
+  const getBg = () => {
+    return bg2
+  }
+
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light'
     setTheme(newTheme)
@@ -128,10 +150,22 @@ const App: React.FunctionComponent<any> = () => {
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col className='p-3 col-end'>
+        <Col className='p-3 col-end' style={{backgroundImage: 'url('+currentBg+')'}}>
           <div className='title mb-4'>
             <div className='float-end'>
-              <button className='btn btn-sm btn-secondary' onClick={toggleTheme}>
+              <button className="btn btn-sm btn-secondary" onClick={handleClickButtonBg}>
+                 <FontAwesomeIcon icon={faImage} fontSize={25}/>
+              </button>
+              {showBgList &&
+              <div className="list-img-bg">
+                <img className="m-1" src={bg1} width={80} onClick={() => setCurrentBg('/src/assets/img/bg-1.jpg')} alt="Image" />
+                <img className="m-1" src={bg2} width={80} onClick={() => setCurrentBg('/src/assets/img/bg-2.jpg')} alt="Image" />
+                <img className="m-1" src={bg3} width={80} onClick={() => setCurrentBg('/src/assets/img/bg-3.jpg')} alt="Image" />
+              </div>
+              }
+            </div>
+            <div className='float-end'>
+              <button className='btn btn-sm btn-secondary me-2' onClick={toggleTheme}>
                 {setIconTheme(theme)}
               </button>
             </div>

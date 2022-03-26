@@ -66,7 +66,6 @@
 
 .app .col-end{
     position: relative;
-    background-image: url('../img/bg-default-dark.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
@@ -94,3 +93,27 @@ input[type="radio"]{
     padding:15px;
 }
 
+.app .list-img-bg{
+    background-color: #fff;
+    width: 290px;
+    height: auto;
+    position: absolute;
+    right: 15px;
+    margin-top: 8px;
+    z-index: 1;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 5px #000;
+}
+
+.app .list-img-bg img{
+    cursor: pointer;
+    border:1px solid rgb(155, 150, 150);
+    box-shadow: 0 0 1px #000;
+}
+
+.app .list-img-bg img:hover{
+    cursor: pointer;
+    opacity: 0.5;
+    transition:0.3s ease all;
+}
